@@ -7,13 +7,6 @@ import java.util.ArrayList;
  * Case 4: If possible, and doesn't work return -1
  */
 public class Week1Challenge {
-	public static void main(String[] args) {
-		String start = "AACCGGTT";				//start string
-		String end = "AAACGGTA";				//end string
-		String[] bank = {"AACCGGTA", "AACCGCTA", "AAACGGTA"};		//create bank with array list
-			
-		System.out.println(minimumMutations(start, end, bank));
-	}
 	
 	public static boolean inTheBank(String str, String[] bank) {
 		for (String i : bank) {
