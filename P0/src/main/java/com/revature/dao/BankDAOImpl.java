@@ -86,7 +86,6 @@ public class BankDAOImpl implements BankDAO{
 					PASSWORD = rs.getString("PASSWORD");
 					u = new User(user_id, USERNAME, PASSWORD);
 				}
-				return u.getUser_id();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} catch (IOException e1) {
@@ -178,6 +177,23 @@ public class BankDAOImpl implements BankDAO{
 		}
 		System.out.println("Please input a password");
 		String PASSWORD = scanner.nextLine();
+		if (PASSWORD.contains(" ")) {
+			System.out.println("Invalid input, don't use spaces");
+			CreateUser();
+			return;
+		}
+		try {
+			Properties prop = new Properties();
+			prop.load(ConnectionUtil.class.getClassLoader().getResourceAsStream("connection.properties"));
+			String superUsername = prop.getProperty("username");
+			String superPassword = prop.getProperty("password");
+			if (USERNAME.equals(superUsername) && PASSWORD.equals(superPassword)) {
+				System.out.println("USERNAME is already taken, please use another");
+				return;
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "INSERT INTO USER_(USERNAME, PASSWORD) VALUES (?,?)";
 			PreparedStatement pstmt = conn.prepareStatement(sql);

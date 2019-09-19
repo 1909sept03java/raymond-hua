@@ -1,34 +1,43 @@
 window.onload = function() {
-    // select element with id "fizzBuzzButton"
-    // apply an event listener to it to make it clickable
-    // define anonymous function to be invoked when it is clicked
-    // this anonymous function is a CALLBACK FUNCTION - excecutes when another function 
-        // has finished executing 
-    document.getElementById("fizzBuzzButton").addEventListener("click", function() {
-        let num1 = document.getElementById("num1").value;
-        let word1 = document.getElementById("word1").value;
-        let num2 = document.getElementById("num2").value;
-        let word2 = document.getElementById("word2").value;
-        fizzBuzzOrSimilar(num1,word1,num2,word2);
+    document.getElementById("myButton").addEventListener("click", function() {
+        let num3 = document.getElementById("inNumber").value;
+        let word3 = document.getElementById("inWord").value;
+        catDogBird(num3,word3)
     });
-}
-
-// THE ARGUMENT NAMES ARE ARBITRARY AND NOT AT ALL RELATED TO IDENTIFIERS IN THE ABOVE FUNCTION!
-function fizzBuzzOrSimilar(num1, word1, num2, word2) {
-    // this is template string - introduced in ES6
-    console.log(`num1 is ${num1}, replaced by ${word1}, and num2 is ${num2}, replaced by ${word2}`);
-    // console.log to print from 1-100 with all multiples of num1 replaced by word1, same for word2
-    // all multiples of both replaced with word1word2
+ }
+ function catDogBird(num3, word3){
+    var numArray= num3.split(",");
+    var strArray = word3.split(",");
+    console.log (numArray);
+    console.log(strArray);
+    console.log("num1 is " + numArray[0] +", word1 is " + strArray[0]);
+    console.log("num2 is " + numArray[1] +", word2 is " + strArray[1]);
+    console.log("num3 is " + numArray[2] +", word3 is " + strArray[2]);
     var i;
-    for(i=0; i<100;i++){
-        if ((i%num1 === 0) & (i%num2 === 0))
-            console.log(word1 + word2);
-        else if (i%num2 === 0)
-            console.log(word2);
-        else if (i%num1 === 0)
-            console.log(word1);
-        else
-            console.log(i);
+    var j = false;
+    var k = "";
+    for(i=1;i<106;i++){
+        if (j === false){
+            k = i + " ";
+            //console.log(i);
+        }
+        if(i%numArray[0]===0){
+            k += strArray[0] + " ";
+            //console.log(strArray[0]);
+            j = true;
+        }
+        if(i%numArray[1]===0){
+            k += strArray[1] + " ";
+            //console.log(strArray[1]);
+            j = true;
+        }
+        if(i%numArray[2]===0){
+            k += strArray[2] + " ";
+            //console.log(strArray[2]);
+            j = true;
+        }
+        console.log(k);
+        k = "";
+        j = false;
     }
-}
-
+ }
