@@ -166,8 +166,13 @@ public class BankDAOImpl implements BankDAO{
 	////////////////////////////////////////////////////////////////////////////
 	@Override
 	public void CreateUser() {
-		System.out.println("Please input a username, or enter 0 to cancel");
+		System.out.println("Please input a username less than 100 characters, or enter 0 to cancel");
 		String USERNAME = scanner.nextLine();
+		if(USERNAME.length() > 100) {
+			System.out.println("Invalid input, over 100 characters used");
+			CreateUser();
+			return;
+		}
 		if (USERNAME.charAt(0) == '0')
 			return;
 		if (USERNAME.contains(" ")) {
@@ -179,6 +184,11 @@ public class BankDAOImpl implements BankDAO{
 		String PASSWORD = scanner.nextLine();
 		if (PASSWORD.contains(" ")) {
 			System.out.println("Invalid input, don't use spaces");
+			CreateUser();
+			return;
+		}
+		if(PASSWORD.length() > 100) {
+			System.out.println("Invalid input, over 100 characters used");
 			CreateUser();
 			return;
 		}
@@ -221,10 +231,30 @@ public class BankDAOImpl implements BankDAO{
 		}catch(NumberFormatException e) {
 			return;
 		}
-		System.out.println("Please input a new USERNAME");
+		System.out.println("Please input a new USERNAME with less than 100 characters");
 		String USERNAME = scanner.nextLine();
-		System.out.println("Please input a new PASSWORD");
+		if(USERNAME.length() > 100) {
+			System.out.println("Invalid input, over 100 characters used");
+			UpdateUser();
+			return;
+		}
+		if (USERNAME.contains(" ")) {
+			System.out.println("Invalid input, don't use spaces");
+			UpdateUser();
+			return;
+		}
+		System.out.println("Please input a new PASSWORD with less than 100 characters");
 		String PASSWORD = scanner.nextLine();
+		if(PASSWORD.length() > 100) {
+			System.out.println("Invalid input, over 100 characters used");
+			UpdateUser();
+			return;
+		}
+		if (PASSWORD.contains(" ")) {
+			System.out.println("Invalid input, don't use spaces");
+			UpdateUser();
+			return;
+		}
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "UPDATE USER_ SET USERNAME = ?, PASSWORD = ? WHERE USER_ID = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -404,7 +434,7 @@ public class BankDAOImpl implements BankDAO{
 	}
 	@Override
 	public void CreateAccount(int USER_ID) {
-		System.out.println("How much would you like to open your account with, or enter 0 to cancel?");
+		System.out.println("How much would you like to open your account with in ($), or enter 0 to cancel?");
 		double BALANCE = -1;
 		try {
 			BALANCE = Double.parseDouble(scanner.nextLine());
@@ -601,9 +631,11 @@ public class BankDAOImpl implements BankDAO{
 		double amount;
 		switch(option) {
 		case 0: return;
-		case 1: System.out.println("How much would you like to withdraw?");
+		case 1: System.out.println("How much would you like to withdraw in ($)?");
 			try{
 				amount = Double.parseDouble(scanner.nextLine()) * -1;
+				if (amount > 0)
+					throw new NumberFormatException();
 			} catch (NumberFormatException e1) {
 				e1.printStackTrace();
 				System.out.println("Invalid input");
@@ -615,9 +647,11 @@ public class BankDAOImpl implements BankDAO{
 				return;
 			}
 			break;
-		case 2: System.out.println("How much would you like to deposit IN ($)?");
+		case 2: System.out.println("How much would you like to deposit in ($)?");
 		try{
 			amount = Double.parseDouble(scanner.nextLine()) * 1;
+			if (amount < 0)
+				throw new NumberFormatException();
 		} catch (NumberFormatException e1) {
 			e1.printStackTrace();
 			System.out.println("Invalid input");

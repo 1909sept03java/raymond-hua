@@ -28,6 +28,7 @@ public class Driver {
 			try { 
 				option = scanner.nextLine().charAt(0);
 			} catch (StringIndexOutOfBoundsException e) {
+				//e.printStackTrace();
 				continue;
 			}
 			switch (option) {

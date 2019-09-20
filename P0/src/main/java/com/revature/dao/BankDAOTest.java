@@ -24,7 +24,7 @@ public class BankDAOTest {
 	public static void initialize() {
 		dao = new BankDAOImpl();
 	}
-	
+	//Valid user, USERNAME: AAllison, PASSWORD: AAllisonP, USER_ID = 1
 	@Test(expected = UnknownUserException.class)
 	public void testUnknownUserException() throws IncorrectPasswordException, UnknownUserException {
 		System.out.println("Unknown user test");
