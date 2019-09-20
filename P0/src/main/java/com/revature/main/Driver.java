@@ -22,6 +22,7 @@ public class Driver {
 		*/
 		BankDAO dao = new BankDAOImpl();
 		char option = '1';
+		System.out.println("Welcome to American Bank");
 		while(option != '0') {
 			System.out.println("Select:\n1) Log in\n2) Register\n0) Exit");
 			try { 
