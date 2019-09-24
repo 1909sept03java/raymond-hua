@@ -41,7 +41,7 @@ function updatePeople(results) {
         persons[i] = person;
     }
     for (i = 0; i < persons.length; i++) {
-        toHTML(persons[i]);
+        toHTML(persons[i], i);
     }
 }
 
@@ -49,7 +49,7 @@ function firstLetterUpperCase(temp) {
     return temp.charAt(0).toUpperCase() + temp.substring(1);
 }
 
-function toHTML(person) {
+function toHTML(person, i) {
     var div = document.createElement("div");
     var h3 = document.createElement("h3");
     var img = document.createElement("img");
@@ -57,6 +57,14 @@ function toHTML(person) {
     h3.innerText = person.name;
     img.src = person.image;
     p.innerText = person.bio;
+    
+    if (i%3 === 1)
+        div.style.cssFloat = "right";
+    else if(i%3 === 2)
+        div.style.cssFloat = "center";
+    else
+        div.style.cssFloat = "left";
+    
     div.appendChild(h3);
     div.appendChild(img);
     div.appendChild(p);

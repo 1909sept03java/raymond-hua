@@ -16,6 +16,7 @@ local.properties
 .recommenders
 .properties
 *.properties
+.server
 
 # External tool builders
 .externalToolBuilders/
@@ -74,3 +75,4 @@ local.properties
 .sts4-cache/
 
 # End of https://www.gitignore.io/api/eclipse
+
