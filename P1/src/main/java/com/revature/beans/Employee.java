@@ -11,18 +11,25 @@ public class Employee {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Employee(int emeployee_id, String username, String password, int manager_id) {
+	public Employee(int employee_id, String username, String password, int manager_id) {
 		super();
 		this.employee_id = employee_id;
 		this.username = username;
 		this.password = password;
 		this.manager_id = manager_id;
 	}
+	public Employee(String username, String password) {
+		super();
+		this.employee_id = 0;
+		this.username = username;
+		this.password = password;
+		this.manager_id = 0;
+	}
 	//METHODS
 	public int getEmployee_id() {
 		return employee_id;
 	}
-	public void setEmployee_id(int emeloyee_id) {
+	public void setEmployee_id(int employee_id) {
 		this.employee_id = employee_id;
 	}
 	public String getUsername() {

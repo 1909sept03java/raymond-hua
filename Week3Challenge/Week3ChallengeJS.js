@@ -1,7 +1,10 @@
 window.onload = function () {
-    document.getElementById("POPULATE").addEventListener("click", getPeopleWithFetchAndAsync);
+   // document.getElementById("POPULATE").addEventListener("click", getPeopleWithFetchAndAsync);
+    let apiUrl = "http://localhost:8089/P1/session";
+	let response = await fetch(apiUrl, { method: "GET", headers: { "Accept": "application/json" } });
+    let data = await response.json();
 }
-let apiUrl = "https://randomuser.me/api/?results=25";
+//let apiUrl = "https://randomuser.me/api/?results=25";
 
 async function getPeopleWithFetchAndAsync() {
     try {

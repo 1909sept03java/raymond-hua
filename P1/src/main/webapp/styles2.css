@@ -1,0 +1,28 @@
+@charset "ISO-8859-1";
+
+html{
+	background-color: #3b5998;
+}
+
+#heading{
+	background-color: #dfe3ee;
+	text-align: center;
+	padding: 3rem;
+	margin: 5rem;
+	text-decoration: underline;
+}
+
+#display{
+	background-color: #dfe3ee;
+	text-align: left;
+	padding: 3rem;
+	margin: 5rem;
+}
+
+#button{
+	float: right;
+}
+
+#foot{
+	float: right;
+}

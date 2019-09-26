@@ -32,7 +32,7 @@ public class Reimbursement {
 		this.employee_id = employee_id;
 	}
 	public double getAmount() {
-		return amount;
+		return amount;	
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
