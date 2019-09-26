@@ -83,11 +83,9 @@ public class LoginServlet2 extends HttpServlet{
 			session.setAttribute("username",e.getUsername());
 			session.setAttribute("password", e.getPassword());
 			session.setAttribute("manager_id", e.getManager_id());
-			if(dao.isEmmMan(e))
-				req.getRequestDispatcher("Manager.html").forward(req, resp);
-			else
-				req.getRequestDispatcher("Employee.html").forward(req, resp);
-		} else {
+			resp.sendRedirect("employee");
+		}
+		else {
 			//Alert "Invalid Information"
 			resp.sendRedirect("login");
 		}	

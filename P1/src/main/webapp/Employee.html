@@ -4,9 +4,27 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 <link rel="stylesheet" href="styles2.css">
-
 </head>
+
 <body>
-	<div>Employee Page</div>
+	<h1 id="heading">Employee Page</h1>
+	<div id="display">
+		<form action="/action_page.php">
+			<label for="male">Submit a new reimbursement request</label> 
+			<input type="radio" name="option" value="OP1"> <br> 
+			<label for="female">View your pending reimbursement requests</label>
+			<input type="radio" name="option" value="OP2"><br>
+			<label for="other">View your resolved reimbursement requests</label> 
+			<input type="radio" name="option" value="OP3"><br> 
+			<label for="other">View your employee information</label> 
+			<input type="radio" name="option"  value="OP4"><br>
+			<label for="other">Update your employee information</label> 
+			<input type="radio" name="option"  value="OP5"><br>
+			<label for="other">Log out</label> 
+			<input type="radio" name="option"  value="OP10"><br><br>			
+			<input type="submit" value="Submit">
+		</form>
+	</div>
+	<div id="footer">&#169;Raymond.Hua.P1</div>
 </body>
 </html>
