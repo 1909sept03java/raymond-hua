@@ -1,0 +1,17 @@
+html{
+    background-color: gray;
+    padding : 3rem;
+}
+
+h1{
+    text-decoration: underline;
+    color: purple;   
+}
+
+h2{
+    color : brown;
+}
+
+div{
+    color: black;
+}

@@ -25,5 +25,9 @@ public class ProfileServlet extends HttpServlet{
 			resp.sendRedirect("login");
 		}
 	}
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
 }
 

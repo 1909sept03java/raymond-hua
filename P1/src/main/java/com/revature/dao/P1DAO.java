@@ -15,6 +15,7 @@ public interface P1DAO {
 		//INVALID USERS WILL RETURN -1
 		public Employee Authenticate(Employee E);
 		public boolean isEmmMan(Employee E);
+		public void newReimbursement(int EMPLOYEE_ID, double AMOUNT);
 		//OPTION 2
 		//FOLLOWS AFTER VALIDATE, 0 WILL GRANT SUPER USER ACCES
 		//POSITIVE INTEGER, WILL GRANT NORMAL USER ACCESS
@@ -25,8 +26,7 @@ public interface P1DAO {
 		//OPTION 2.2 MENU, NORMAL USER ACCESS
 		//public void UserOption(int KEY_ID);
 		//ALL OPTION MENUS WILL LOOP, LOG OUT IS IMPLEMENTED WITH SWITCH CASES
-		//AND CASE = '0'
-		
+		//AND CASE = '0'		
 		//BEGIN THINKING OF IMPLEMENTATION, CREATE OBJECT TO BE PASSED TO AND FROM DB
 		//PARAMTERS CAN BE CHANGED
 		//OPTION 2.1

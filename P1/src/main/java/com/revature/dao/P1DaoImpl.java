@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Properties;
 
 import com.revature.beans.Credentials;
@@ -23,7 +24,7 @@ public class P1DaoImpl implements P1DAO {
 			pstmt.setString(1, result.getUsername());
 			pstmt.setString(2, result.getPassword());
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				result.setEmployee_id(rs.getInt("EMPLOYEE_ID"));
 				result.setUsername(rs.getString("USERNAME"));
 				result.setPassword(rs.getString("PASSWORD"));
@@ -35,7 +36,7 @@ public class P1DaoImpl implements P1DAO {
 			e1.printStackTrace();
 		} catch (NullPointerException e2) {
 			e2.printStackTrace();
-		}		
+		}
 		return result;
 	}
 
@@ -46,9 +47,10 @@ public class P1DaoImpl implements P1DAO {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, E.getEmployee_id());
 			ResultSet rs = pstmt.executeQuery();
-			while(rs.next()) {
-				if(rs.getInt("MANAGER_ID") == E.getEmployee_id());
-					return true;
+			while (rs.next()) {
+				if (rs.getInt("MANAGER_ID") == E.getEmployee_id())
+					;
+				return true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,7 +58,24 @@ public class P1DaoImpl implements P1DAO {
 			e1.printStackTrace();
 		} catch (NullPointerException e2) {
 			e2.printStackTrace();
-		}	
+		}
 		return isManager;
+	}
+
+	@Override
+	public void newReimbursement(int EMPLOYEE_ID, double AMOUNT) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "INSERT INTO REIMBURSEMENT (EMPLOYEE_ID, AMOUNT, PAD) VALUES (?, ?, 0)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, EMPLOYEE_ID);
+			pstmt.setDouble(2, AMOUNT);
+			pstmt.executeUpdate();
+		} catch (SQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e2) {
+			e2.printStackTrace();
+		}
 	}
 }

@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.beans.Employee;
 import com.revature.dao.P1DaoImpl;
 
@@ -34,9 +33,25 @@ public class EmployeeServlet extends HttpServlet {
 			e1.printStackTrace();
 			resp.getWriter().write("{\"session\":null");
 		}	
+		e.setEmmMan(dao.isEmmMan(e));
+		session.setAttribute("isEmmMan", dao.isEmmMan(e));
 		if(dao.isEmmMan(e))
 			req.getRequestDispatcher("Manager.html").forward(req, resp);
 		else
 			req.getRequestDispatcher("Employee.html").forward(req, resp);	
+	}
+	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+		String option = req.getParameter("option");
+		if (option.equals("0")) {
+			session.setAttribute("option", option);
+			session.invalidate();
+			resp.sendRedirect("login");
+		}
+		else {
+			session.setAttribute("option", option);
+			resp.sendRedirect("option");
+		}
 	}
 }

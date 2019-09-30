@@ -2,10 +2,12 @@ package com.revature.beans;
 
 public class Employee {
 	//VARIABLES
-	private int employee_id;
+	private int employee_id = 0;
 	private String username;
 	private String password;
-	private int manager_id;
+	private int manager_id = 0;
+	private int option = 0;
+	private boolean isEmmMan = false;
 	//CONSTRUCTORS
 	public Employee() {
 		super();
@@ -20,10 +22,18 @@ public class Employee {
 	}
 	public Employee(String username, String password) {
 		super();
-		this.employee_id = 0;
 		this.username = username;
 		this.password = password;
-		this.manager_id = 0;
+	}
+	
+	public Employee(int employee_id, String username, String password, int manager_id, int option, boolean isEmmMan) {
+		super();
+		this.employee_id = employee_id;
+		this.username = username;
+		this.password = password;
+		this.manager_id = manager_id;
+		this.option = option;
+		this.isEmmMan = isEmmMan;
 	}
 	//METHODS
 	public int getEmployee_id() {
@@ -49,6 +59,18 @@ public class Employee {
 	}
 	public void setManager_id(int manager_id) {
 		this.manager_id = manager_id;
+	}
+	public int getOption() {
+		return option;
+	}
+	public void setOption(int option) {
+		this.option = option;
+	}
+	public boolean isEmmMan() {
+		return isEmmMan;
+	}
+	public void setEmmMan(boolean isEmmMan) {
+		this.isEmmMan = isEmmMan;
 	}
 	@Override
 	public String toString() {

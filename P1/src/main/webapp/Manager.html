@@ -2,34 +2,35 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Manager</title>
 <link rel="stylesheet" href="styles2.css">
 </head>
 
 <body>
 	<h1 id="heading">Manager Page</h1>
 	<div id="display">
-		<form action="/action_page.php">
+		<h2>Options:</h2>
+		<form action="employee" method="POST">
 			<label for="male">Submit a new reimbursement request</label> 
-			<input type="radio" name="option" value="OP1"> <br> 
+			<input type="radio" name="option" value="1"> <br> 
 			<label for="female">View your pending reimbursement requests</label>
-			<input type="radio" name="option" value="OP2"><br>
+			<input type="radio" name="option" value="2"><br>
 			<label for="other">View your resolved reimbursement requests</label> 
-			<input type="radio" name="option" value="OP3"><br> 
+			<input type="radio" name="option" value="3"><br> 
 			<label for="other">View your employee information</label> 
-			<input type="radio" name="option"  value="OP4"><br>
+			<input type="radio" name="option"  value="4"><br>
 			<label for="other">Update your employee information</label> 
-			<input type="radio" name="option"  value="OP5"><br>
+			<input type="radio" name="option"  value="5"><br>
 			<label for="male">Approve/Deny reimbursement requests</label> 
-			<input type="radio" name="option" value="OP6"> <br> 
+			<input type="radio" name="option" value="6"> <br> 
 			<label for="female">View pending reimbursement</label>
-			<input type="radio" name="option" value="OP7"><br>
+			<input type="radio" name="option" value="7"><br>
 			<label for="other">View all resolved reimbursements</label> 
-			<input type="radio" name="option" value="OP8"><br> 
+			<input type="radio" name="option" value="8"><br> 
 			<label for="other">View all employees and their manager</label> 
-			<input type="radio" name="option"  value="OP9"><br>
+			<input type="radio" name="option"  value="9"><br>
 			<label for="other">Log out</label> 
-			<input type="radio" name="option"  value="OP10"><br><br> 
+			<input type="radio" name="option"  value="0"><br><br> 
 			<input type="submit" value="Submit">
 		</form>
 	</div>

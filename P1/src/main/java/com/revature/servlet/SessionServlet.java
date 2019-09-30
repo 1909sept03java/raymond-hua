@@ -1,6 +1,7 @@
 package com.revature.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,16 +51,26 @@ public class SessionServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
+//		Employee e = new Employee();
+//		e.setEmployee_id(Integer.parseInt(session.getAttribute("employee_id").toString()));
+//		e.setUsername(session.getAttribute("username").toString());
+//		e.setPassword(session.getAttribute("password").toString());
+//		e.setManager_id(Integer.parseInt(session.getAttribute("manager_id").toString()));
+//		e.setEmmMan(Boolean.parseBoolean(session.getAttribute("isEmmMan").toString()));
+//		e.setOption(Integer.parseInt(session.getAttribute("option").toString()));
+
+		ArrayList data = new ArrayList(); //get data
+		data.add((session.getAttribute("option").toString()));
+		data.add((session.getAttribute("employee_id").toString()));
+		data.add((session.getAttribute("username").toString()));
+		data.add((session.getAttribute("password").toString()));
+		data.add((session.getAttribute("manager_id").toString()));
+		data.add((session.getAttribute("isEmmMan").toString()));
 		try {
-			int employee_id = Integer.parseInt(session.getAttribute("employee_id").toString());
-			String username = session.getAttribute("username").toString();
-			String password = session.getAttribute("password").toString();
-			int manager_id = Integer.parseInt(session.getAttribute("manager_id").toString());
-			Employee e = new Employee (employee_id, username, password, manager_id);
-			resp.getWriter().write((new ObjectMapper()).writeValueAsString(e));
-		} catch (Exception e) {
-			e.printStackTrace();
+			resp.getWriter().write((new ObjectMapper()).writeValueAsString(data));
+		} catch (Exception e1) {
+			e1.printStackTrace();
 			resp.getWriter().write("{\"session\":null");
-		}	
+		}
 	} 
 }

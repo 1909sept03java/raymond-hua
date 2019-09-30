@@ -1,0 +1,33 @@
+
+<html>
+<h1>Content ConCATenator</h1>
+<div>
+    <h2>Current Content</h2>
+    <p>{{user.content}}</p>
+</div>
+<div>
+    <h2>New Content</h2>
+    <input [(ngModel)]="user.newContent" placeholder="New Content">
+    <button (click)="updateContent()">Update Content</button>
+</div>
+<br>
+<div>
+    <img src="https://cdn.shopify.com/s/files/1/1365/2497/products/wizard_cat_1_800x.jpg?v=1520535281" width=320px>
+</div>
+<br>
+<div>
+    <h2>Palindrome Checker</h2>
+    <p>{{user.newContent}} is {{user.palCheck}} palindrome</p>
+    <input [(ngModel)]="user.newContent" placeholder="Input">
+    <button (click)="palindromeChecker()">Check if palindrome</button>
+</div>
+<br>
+<div>
+    <h2>Array Algorithm</h2>
+    <p>Element: {{user.number}}</p>
+    <p>Array: {{user.numbers}}</p>
+    <input [(ngModel)]="user.number" placeholder="Input">
+    <button (click)="arrayAdder()">Add to array</button>
+</div>
+
+</html>

@@ -2,26 +2,27 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Employee</title>
 <link rel="stylesheet" href="styles2.css">
 </head>
 
 <body>
 	<h1 id="heading">Employee Page</h1>
 	<div id="display">
-		<form action="/action_page.php">
-			<label for="male">Submit a new reimbursement request</label> 
-			<input type="radio" name="option" value="OP1"> <br> 
-			<label for="female">View your pending reimbursement requests</label>
-			<input type="radio" name="option" value="OP2"><br>
-			<label for="other">View your resolved reimbursement requests</label> 
-			<input type="radio" name="option" value="OP3"><br> 
-			<label for="other">View your employee information</label> 
-			<input type="radio" name="option"  value="OP4"><br>
-			<label for="other">Update your employee information</label> 
-			<input type="radio" name="option"  value="OP5"><br>
-			<label for="other">Log out</label> 
-			<input type="radio" name="option"  value="OP10"><br><br>			
+		<h2>Options:</h2>
+		<form action="employee" method="POST">
+			<label>Submit a new reimbursement request</label> 
+			<input type="radio" name="option" value="1"> <br> 
+			<label>View your pending reimbursement requests</label>
+			<input type="radio" name="option" value="2"><br>
+			<label>View your resolved reimbursement requests</label> 
+			<input type="radio" name="option" value="3"><br> 
+			<label>View your employee information</label> 
+			<input type="radio" name="option"  value="4"><br>
+			<label>Update your employee information</label> 
+			<input type="radio" name="option"  value="5"><br>
+			<label>Log out</label> 
+			<input type="radio" name="option"  value="0"><br><br>			
 			<input type="submit" value="Submit">
 		</form>
 	</div>

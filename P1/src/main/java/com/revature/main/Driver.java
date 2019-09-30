@@ -24,6 +24,8 @@ public class Driver {
 		
 		Employee e = new Employee("HI", "BYE");
 		e = dao.Authenticate(e);
+		dao.newReimbursement(e.getEmployee_id(), 99.99);
 		System.out.println(e.toString());
+		System.out.println("Complete");
 	}
 }
