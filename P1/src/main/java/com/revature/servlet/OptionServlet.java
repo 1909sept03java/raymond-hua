@@ -30,9 +30,15 @@ public class OptionServlet extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		int option = Integer.parseInt(session.getAttribute("option").toString());
 		int employee_id = Integer.parseInt(session.getAttribute("employee_id").toString());
-		double amount = Double.parseDouble(req.getParameter("amount"));
+		
 		switch(option) {
-		case 1: dao.newReimbursement(employee_id, amount); break;
+			case 1: double amount = Double.parseDouble(req.getParameter("amount"));	
+				dao.newReimbursement(employee_id, amount); 
+				break;
+			case 5: String username = req.getParameter("newUsername");
+				String password = req.getParameter("newPassword");
+				dao.updateEmployee(employee_id, username, password);
+				break;
 		}
 		if(Boolean.parseBoolean(session.getAttribute("isEmmMan").toString()))
 			req.getRequestDispatcher("Manager.html").forward(req, resp);

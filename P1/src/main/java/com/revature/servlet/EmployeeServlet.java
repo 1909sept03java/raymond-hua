@@ -44,13 +44,14 @@ public class EmployeeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		String option = req.getParameter("option");
+		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
 		if (option.equals("0")) {
-			session.setAttribute("option", option);
 			session.invalidate();
 			resp.sendRedirect("login");
 		}
 		else {
 			session.setAttribute("option", option);
+			session.setAttribute("selection", employee_id);
 			resp.sendRedirect("option");
 		}
 	}

@@ -11,25 +11,28 @@
 	<div id="display">
 		<h2>Options:</h2>
 		<form action="employee" method="POST">
-			<label for="male">Submit a new reimbursement request</label> 
+			<label>Submit a new reimbursement request</label> 
 			<input type="radio" name="option" value="1"> <br> 
-			<label for="female">View your pending reimbursement requests</label>
+			<label>View your pending reimbursement requests</label>
 			<input type="radio" name="option" value="2"><br>
-			<label for="other">View your resolved reimbursement requests</label> 
+			<label>View your resolved reimbursement requests</label> 
 			<input type="radio" name="option" value="3"><br> 
-			<label for="other">View your employee information</label> 
+			<label>View your employee information</label> 
 			<input type="radio" name="option"  value="4"><br>
-			<label for="other">Update your employee information</label> 
+			<label>Update your employee information</label> 
 			<input type="radio" name="option"  value="5"><br>
-			<label for="male">Approve/Deny reimbursement requests</label> 
+			<label>Approve/Deny reimbursement requests</label> 
 			<input type="radio" name="option" value="6"> <br> 
-			<label for="female">View pending reimbursement</label>
-			<input type="radio" name="option" value="7"><br>
-			<label for="other">View all resolved reimbursements</label> 
+			<label>View pending reimbursement requests</label>
+			<input type="radio" name="option" value="7"><fieldset>
+			<legend>Employee ID:</legend>
+			<input autocomplete="off" name="employee_id" value ="0" />
+			</fieldset><br>
+			<label>View all resolved reimbursements</label> 
 			<input type="radio" name="option" value="8"><br> 
-			<label for="other">View all employees and their manager</label> 
+			<label>View all employees and their manager</label> 
 			<input type="radio" name="option"  value="9"><br>
-			<label for="other">Log out</label> 
+			<label>Log out</label> 
 			<input type="radio" name="option"  value="0"><br><br> 
 			<input type="submit" value="Submit">
 		</form>

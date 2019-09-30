@@ -35,6 +35,12 @@ public class Employee {
 		this.option = option;
 		this.isEmmMan = isEmmMan;
 	}
+	public Employee(int employee_id, String username, int manager_id) {
+		super();
+		this.employee_id = employee_id;
+		this.username = username;
+		this.manager_id = manager_id;
+	}
 	//METHODS
 	public int getEmployee_id() {
 		return employee_id;

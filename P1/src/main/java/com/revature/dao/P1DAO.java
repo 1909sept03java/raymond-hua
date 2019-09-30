@@ -1,6 +1,9 @@
 package com.revature.dao;
 
+import java.util.ArrayList;
+
 import com.revature.beans.Employee;
+import com.revature.beans.Reimbursement;
 
 public interface P1DAO {
 		//OPTION 1.1, LOG IN
@@ -16,6 +19,13 @@ public interface P1DAO {
 		public Employee Authenticate(Employee E);
 		public boolean isEmmMan(Employee E);
 		public void newReimbursement(int EMPLOYEE_ID, double AMOUNT);
+		public ArrayList<Reimbursement> getPendingReimbursements(int EMPLOYEE_ID);
+		public ArrayList<Reimbursement> getOtherReimbursements(int EMPLOYEE_ID);
+		public void updateEmployee(int EMPLOYEE_ID, String USERNAME, String PASSWORD);
+		public ArrayList<Reimbursement> getEmployeeReimbursements(int MANAGER_ID, int EMPLOYEE_ID);
+		public ArrayList<Reimbursement> getResolvedReimbursements();
+		public ArrayList<Employee> getEmployees();
+
 		//OPTION 2
 		//FOLLOWS AFTER VALIDATE, 0 WILL GRANT SUPER USER ACCES
 		//POSITIVE INTEGER, WILL GRANT NORMAL USER ACCESS

@@ -32,8 +32,26 @@ export class DemoComponent implements OnInit {
   // one which takes a user-provided array of numbers (you can have the user enter the numbers one at a time or as 
   // a single comma-separated sequence), sorts the array, and displays the sorted version. 
   arrayAdder(): void {
-    this.user.numbers.push(this.user.number);
+    this.user.numbers = this.user.numbers.concat(this.user.number);
   }
+  bubbleSort(): void{
+    let flag: boolean = true;
+    let tempArray :number[] = this.user.numbers;
+    while (flag) {
+      flag = false;
+      for (let i = 0; i < tempArray.length; i++) {
+        if (tempArray[i] > tempArray[i + 1]) {
+          let temp = tempArray[i + 1];
+          tempArray[i + 1] = tempArray[i];
+          tempArray[i] = temp;
+          flag = true;
+        }
+      }
+      this.user.numbers = tempArray;
+    }
+    this.user.numbers = this.user.numbers;
+  }
+
   ngOnInit() {
   }
 
