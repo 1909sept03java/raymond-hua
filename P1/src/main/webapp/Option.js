@@ -17,44 +17,50 @@ function redirect(selection, data){
 		case '3': return viewReimbursement(data[7]); break;
 		case '4': return viewEmployeeInfo(data); break;
 		case '5': return updateEmployeeInfo(data); break;
-		case '6': return viewEmployeeReimbursement(data[7]); break;
-		//case '6': return updateEmployeeReimbursement(data[7]); break;
+		case '6': return updateEmployeeReimbursement(data[7]); break;
 		case '7': return viewEmployeeReimbursement(data[7]); break;
 		case '8': return viewEmployeeReimbursement(data[7]); break;
 		case '9': return viewEmployees(data[7]); break;
+		case '10': return registerEmployee(); break;
 		//default: console.log("Hello");	break;
 	}
 };
 
 function populate(){
+		var heading = document.getElementById("heading");
+		heading.innerText = "Submit New Reimbursement Request";
+		//Entry 
 		var div = document.createElement("div");
 		var form = document.createElement("form");  
 		var fieldset = document.createElement("fieldset");
 		var legend = document.createElement("legend");
 		var input = document.createElement("input");
 		input.name = "amount";
+		input.required = true;
+		input.value = 0;
 		legend.innerText = "Amount:";
 		form.action = "option";
 		form.method = "POST";
-		div.innerText = "Submit Reimbursement Request";
+		div.innerText = "Submit New Reimbursement Request, Enter 0 to Cancel";
 		div.id = "display";
 		fieldset.appendChild(legend);
 		fieldset.appendChild(input);
-		form.appendChild(fieldset);
-		div.appendChild(form);
-		document.body.appendChild(div);
-		var br = document.createElement("br");
-		fieldset.appendChild(br);
+		form.appendChild(fieldset);	
+		//Submit Button
 		var div2 = document.createElement("div");
 		var input2 = document.createElement("input");
 		div2.id = "button";
 		input2.type = "submit";
 		input2.value = "Submit";
 		div2.appendChild(input2);
+		div.appendChild(form);
 		form.appendChild(div2);
+		document.body.appendChild(div);
 };
 
 function viewReimbursement(data){
+	var heading = document.getElementById("heading");
+	heading.innerText = "View Reimbursements";
 	//GENERATE REIMBURSEMENTS
 	for (let i = 0; i < data.length; i++){
 		var div = document.createElement("div");
@@ -67,6 +73,9 @@ function viewReimbursement(data){
 		div.innerText = "Reimbursement ID: "+ data[i].reimbursement_id + "\nEmployee ID: " + data[i].employee_id
 		+ "\nAmount: $" + data[i].amount + "\nStatus: " + status;
 		div.id = "display";
+		if (i %2 == 1){
+			div.id = "display2";
+		}
 		document.body.appendChild(div);
 	}
 	//RETURN BUTTON BACK TO OPTIONS
@@ -87,6 +96,8 @@ function viewReimbursement(data){
 };
 
 function viewEmployeeInfo(data){
+	var heading = document.getElementById("heading");
+	heading.innerText = "View Employee Information";
 	var div = document.createElement("div");
 	var form = document.createElement("form");  
 	form.action = "option";
@@ -109,6 +120,8 @@ function viewEmployeeInfo(data){
 };
 
 function updateEmployeeInfo(data){
+	var heading = document.getElementById("heading");
+	heading.innerText = "Update Employee Information";
 	//SHOW PREVIOUS INFO
 	var div = document.createElement("div");
 	var form = document.createElement("form");  
@@ -125,6 +138,7 @@ function updateEmployeeInfo(data){
 	var legend = document.createElement("legend");
 	var input = document.createElement("input");
 	input.name = "newUsername";
+	input.required = true;
 	legend.innerText = "New username:";
 	fieldset.appendChild(legend);
 	fieldset.appendChild(input);
@@ -134,6 +148,7 @@ function updateEmployeeInfo(data){
 	var legend2 = document.createElement("legend");
 	var input2 = document.createElement("input");
 	input2.name = "newPassword";
+	input2.required = true;
 	legend2.innerText = "New password:";
 	fieldset2.appendChild(legend2);
 	fieldset2.appendChild(input2);
@@ -151,10 +166,8 @@ function updateEmployeeInfo(data){
 };
 
 function updateEmployeeReimbursement(data){
-	//STUFF
-}
-
-function viewEmployeeReimbursement(data){
+	var heading = document.getElementById("heading");
+	heading.innerText = "Approve/Deny Reimbursement Requests";
 	//GENERATE REIMBURSEMENTS
 	for (let i = 0; i < data.length; i++){
 		var div = document.createElement("div");
@@ -167,6 +180,69 @@ function viewEmployeeReimbursement(data){
 		div.innerText = "Reimbursement ID: "+ data[i].reimbursement_id + "\nEmployee ID: " + data[i].employee_id
 		+ "\nAmount: $" + data[i].amount + "\nStatus: " + status
 		div.id = "display";
+		if (i %2 == 1){
+			div.id = "display2";
+		}
+		document.body.appendChild(div);
+	}
+	//SETTING UP
+	var div = document.createElement("div");
+	var form = document.createElement("form");  
+	form.action = "option";
+	form.method = "POST";
+	div.id = "display";
+	div.appendChild(form);
+	document.body.appendChild(div);
+	//APPROVE SELECTION
+	var fieldset = document.createElement("fieldset");
+	var legend = document.createElement("legend");
+	var input = document.createElement("input");
+	input.name = "approve";
+	input.required = true;
+	input.value = 0;
+	legend.innerText = "Approve: ";
+	fieldset.appendChild(legend);
+	fieldset.appendChild(input);
+	form.appendChild(fieldset);
+	//DENY SELECTION
+	var fieldset2 = document.createElement("fieldset");
+	var legend2 = document.createElement("legend");
+	var input2 = document.createElement("input");
+	input2.name = "deny";
+	input2.required = true;
+	input2.value = 0;
+	legend2.innerText = "Deny:";
+	fieldset2.appendChild(legend2);
+	fieldset2.appendChild(input2);
+	form.appendChild(fieldset2);
+	//RETURN BUTTON BACK TO OPTIONS
+	var div2 = document.createElement("div");
+	var input2 = document.createElement("input");
+	div2.id = "button";
+	input2.type = "submit";
+	input2.value = "Submit";
+	div2.appendChild(input2);
+	form.appendChild(div2);
+}
+
+function viewEmployeeReimbursement(data){
+	var heading = document.getElementById("heading");
+	heading.innerText = "View Reimbursements";
+	//GENERATE REIMBURSEMENTS
+	for (let i = 0; i < data.length; i++){
+		var div = document.createElement("div");
+		let status = '';
+		switch (data[i].pad){
+			case 0: status = 'Pending'; break;
+			case 1: status = 'Approved'; break;
+			case 2: status = 'Denied'; break;
+		}
+		div.innerText = "Reimbursement ID: "+ data[i].reimbursement_id + "\nEmployee ID: " + data[i].employee_id
+		+ "\nAmount: $" + data[i].amount + "\nStatus: " + status
+		div.id = "display";
+		if (i %2 == 1){
+			div.id = "display2";
+		}
 		document.body.appendChild(div);
 	}
 	//RETURN BUTTON BACK TO OPTIONS
@@ -187,12 +263,17 @@ function viewEmployeeReimbursement(data){
 };
 
 function viewEmployees(data){
+	var heading = document.getElementById("heading");
+	heading.innerText = "Company Roster";
 	//GENERATE EMPLOYEES
 	for (let i = 0; i < data.length; i++){
 		var div = document.createElement("div");
 		div.innerText = "Employee ID: "+ data[i].employee_id + "\nUsername: " + data[i].username
 		+ "\nManager ID: " + data[i].manager_id;
 		div.id = "display";
+		if (i %2 == 1){
+			div.id = "display2";
+		}
 		document.body.appendChild(div);
 	}
 	//RETURN BUTTON BACK TO OPTIONS
@@ -211,3 +292,44 @@ function viewEmployees(data){
 	div2.appendChild(input2);
 	form.appendChild(div2);
 };
+
+function registerEmployee(){
+	var heading = document.getElementById("heading");
+	heading.innerText = "Submit New Employee Information";
+	//Entry 
+	var div = document.createElement("div");
+	var form = document.createElement("form");  
+	var fieldset = document.createElement("fieldset");
+	var legend = document.createElement("legend");
+	var input = document.createElement("input");
+	input.name = "email";
+	input.required = true;
+	legend.innerText = "Email:";
+	form.action = "option";
+	form.method = "POST";
+	div.innerText = "Submit New Employee Information";
+	div.id = "display";
+	fieldset.appendChild(legend);
+	fieldset.appendChild(input);
+	//
+	var fieldset2 = document.createElement("fieldset");
+	var legend2 = document.createElement("legend");
+	var input2 = document.createElement("input");
+	input2.name = "username";
+	input2.required = true;
+	legend2.innerText = "Username:";
+	fieldset2.appendChild(legend2);
+	fieldset2.appendChild(input2);
+	form.appendChild(fieldset);	
+	form.appendChild(fieldset2);	
+	//Submit Button
+	var div2 = document.createElement("div");
+	var input2 = document.createElement("input");
+	div2.id = "button";
+	input2.type = "submit";
+	input2.value = "Submit";
+	div2.appendChild(input2);
+	div.appendChild(form);
+	form.appendChild(div2);
+	document.body.appendChild(div);
+}

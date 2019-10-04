@@ -9,17 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.beans.Employee;
-import com.revature.dao.P1DaoImpl;
+import com.revature.services.Services;
 
 @WebServlet("/option")
 public class OptionServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -4219738150343355737L;
 
-	private P1DaoImpl dao = new P1DaoImpl();
-
+	private Services s = new Services();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.getRequestDispatcher("Option.html").forward(req, resp);
@@ -33,11 +31,19 @@ public class OptionServlet extends HttpServlet {
 		
 		switch(option) {
 			case 1: double amount = Double.parseDouble(req.getParameter("amount"));	
-				dao.newReimbursement(employee_id, amount); 
+				if (amount == 0) break;
+				s.newReimbursementService(employee_id, amount);
 				break;
 			case 5: String username = req.getParameter("newUsername");
 				String password = req.getParameter("newPassword");
-				dao.updateEmployee(employee_id, username, password);
+				s.updateEmployeeService(employee_id, username, password);
+				break;
+			case 6: s.approveService(Integer.parseInt(req.getParameter("approve")));
+				s.denyService(Integer.parseInt(req.getParameter("deny")));
+				break;
+			case 10: String password2 = s.randomStringService();
+				s.newEmployeeService(req.getParameter("username"), password2, 1, req.getParameter("email"));
+				s.sendEmailService(req.getParameter("email"), req.getParameter("username"), password2);
 				break;
 		}
 		if(Boolean.parseBoolean(session.getAttribute("isEmmMan").toString()))

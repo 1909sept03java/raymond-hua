@@ -19,6 +19,13 @@ html{
 	margin: 5rem;
 }
 
+#display2{
+	background-color: #f7f7f7;
+	text-align: left;
+	padding: 3rem;
+	margin: 5rem;
+}
+
 #button{
 	float: right;
 }

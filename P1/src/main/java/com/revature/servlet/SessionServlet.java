@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.beans.Employee;
 import com.revature.dao.P1DaoImpl;
 
 @WebServlet("/session")

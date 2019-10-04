@@ -25,13 +25,15 @@
 			<input type="radio" name="option" value="6"> <br> 
 			<label>View pending reimbursement requests</label>
 			<input type="radio" name="option" value="7"><fieldset>
-			<legend>Employee ID:</legend>
-			<input autocomplete="off" name="employee_id" value ="0" />
+			<legend>Employee ID, or 0 to view all :</legend>
+			<input required autocomplete="off" name="employee_id" value ="0" />
 			</fieldset><br>
 			<label>View all resolved reimbursements</label> 
 			<input type="radio" name="option" value="8"><br> 
 			<label>View all employees and their manager</label> 
 			<input type="radio" name="option"  value="9"><br>
+			<label>Register employee</label> 
+			<input type="radio" name="option"  value="10"><br>
 			<label>Log out</label> 
 			<input type="radio" name="option"  value="0"><br><br> 
 			<input type="submit" value="Submit">

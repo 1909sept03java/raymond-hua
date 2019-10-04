@@ -7,16 +7,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
-import java.util.Properties;
+import java.util.Random;
 
 import com.revature.beans.Employee;
 import com.revature.beans.Reimbursement;
 import com.revature.util.ConnectionUtil;
+import com.revature.util.NotManagerException;
+import com.revature.util.UnknownEmployeeException;
+import com.sendgrid.Method;
+import com.sendgrid.Request;
+import com.sendgrid.Response;
+import com.sendgrid.SendGrid;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
 
 public class P1DaoImpl implements P1DAO {
 
 	@Override
-	public Employee Authenticate(Employee E) {
+	public Employee Authenticate(Employee E) throws UnknownEmployeeException{
 		Employee result = new Employee(E.getUsername(), E.getPassword());
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "SELECT * FROM EMPLOYEE WHERE USERNAME = ? AND PASSWORD = ?";
@@ -37,10 +46,12 @@ public class P1DaoImpl implements P1DAO {
 		} catch (NullPointerException e2) {
 			e2.printStackTrace();
 		}
+		if (result.getEmployee_id() == 0)
+			throw new UnknownEmployeeException();
 		return result;
 	}
 
-	public boolean isEmmMan(Employee E) {
+	public boolean isEmmMan(Employee E) throws NotManagerException{
 		boolean isManager = false;
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "SELECT MANAGER_ID FROM EMPLOYEE WHERE MANAGER_ID = ?";
@@ -59,6 +70,8 @@ public class P1DaoImpl implements P1DAO {
 		} catch (NullPointerException e2) {
 			e2.printStackTrace();
 		}
+		if (isManager == false)
+			throw new NotManagerException();
 		return isManager;
 	}
 
@@ -141,7 +154,7 @@ public class P1DaoImpl implements P1DAO {
 			pstmt.setString(1, USERNAME);
 			pstmt.setString(2, PASSWORD);
 			pstmt.setInt(3,  EMPLOYEE_ID);
-			ResultSet rs = pstmt.executeQuery();
+			pstmt.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (IOException e1) {
@@ -244,5 +257,105 @@ public class P1DaoImpl implements P1DAO {
 			e2.printStackTrace();
 		}
 		return results;
+	}
+
+	public void approve(int REIMBURSEMENT_ID) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "UPDATE REIMBURSEMENT SET PAD = 1 WHERE REIMBURSEMENT_ID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,  REIMBURSEMENT_ID);
+			pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (NullPointerException e2) {
+			e2.printStackTrace();
+		}	
+	}
+
+	public void deny(int REIMBURSEMENT_ID) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "UPDATE REIMBURSEMENT SET PAD = 2 WHERE REIMBURSEMENT_ID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,  REIMBURSEMENT_ID);
+			pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (NullPointerException e2) {
+			e2.printStackTrace();
+		}	
+	}
+	@Override
+	public void resetPassword(String EMAIL, String USERNAME, String PASSWORD) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "UPDATE EMPLOYEE SET PASSWORD = ? WHERE EMAIL = ? AND USERNAME = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, PASSWORD);
+			pstmt.setString(2, EMAIL);
+			pstmt.setString(3,  USERNAME);
+			pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (NullPointerException e2) {
+			e2.printStackTrace();
+		}
+	}
+	@Override
+	public String randomString() {
+        String charOptions = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder str = new StringBuilder();
+        Random rnd = new Random();
+        while (str.length() < 10) { // length of the random string.
+            int index = (int) (rnd.nextFloat() * charOptions.length());
+            str.append(charOptions.charAt(index));
+        }
+        String saltStr = str.toString();
+        return saltStr;
+    }
+	@Override
+	public void sendEmail(String EMAIL, String USERNAME, String PASSWORD) throws IOException {
+		Email from = new Email("raymondjhua@gmail.com");
+	    String subject = "FaceBook Bank Updated Login Information";
+	    Email to = new Email(EMAIL.toLowerCase());
+	    Content content = new Content("text/plain", "Hello, your USERNAME is:" + USERNAME + ", and your new temporary PASWORD is:" + PASSWORD);
+	    Mail mail = new Mail(from, subject, to, content);
+
+	    SendGrid sg = new SendGrid("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");
+	    Request request = new Request();
+	    try {
+	      request.setMethod(Method.POST);
+	      request.setEndpoint("mail/send");
+	      request.setBody(mail.build());
+	      Response response = sg.api(request);
+	      System.out.println(response.getStatusCode());
+	      System.out.println(response.getBody());
+	      System.out.println(response.getHeaders());
+	    } catch (IOException ex) {
+	      throw ex;
+	    }
+	    System.out.println("Done");
+	}
+
+	public void newEmployee(String USERNAME, String PASSWORD, int MANAGER_ID, String EMAIL) {
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "INSERT INTO EMPLOYEE (USERNAME, PASSWORD, MANAGER_ID, EMAIL) VALUES (?, ?, ?, ?)";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, USERNAME);
+			pstmt.setString(2, PASSWORD);
+			pstmt.setInt(3, MANAGER_ID);
+			pstmt.setString(4,  EMAIL);
+			pstmt.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (NullPointerException e2) {
+			e2.printStackTrace();
+		}		
 	}
 }

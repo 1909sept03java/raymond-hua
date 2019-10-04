@@ -10,14 +10,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.revature.beans.Employee;
-import com.revature.dao.P1DaoImpl;
+import com.revature.services.Services;
+import com.revature.util.NotManagerException;
 
 @WebServlet("/employee") 	
 public class EmployeeServlet extends HttpServlet {
 	
 	private static final long serialVersionUID =-4219738150343355737L;
 
-	private P1DaoImpl dao = new P1DaoImpl();
+	private Services s = new Services();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -33,9 +34,13 @@ public class EmployeeServlet extends HttpServlet {
 			e1.printStackTrace();
 			resp.getWriter().write("{\"session\":null");
 		}	
-		e.setEmmMan(dao.isEmmMan(e));
-		session.setAttribute("isEmmMan", dao.isEmmMan(e));
-		if(dao.isEmmMan(e))
+		boolean isEmmMan = false;
+		try {isEmmMan = s.isEmmManService(e);}
+		catch (NotManagerException e1) {
+		}
+		e.setEmmMan(isEmmMan);
+		session.setAttribute("isEmmMan", isEmmMan);
+		if(isEmmMan)
 			req.getRequestDispatcher("Manager.html").forward(req, resp);
 		else
 			req.getRequestDispatcher("Employee.html").forward(req, resp);	
@@ -44,7 +49,10 @@ public class EmployeeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		String option = req.getParameter("option");
-		int employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		int employee_id = 0;
+		if (Boolean.parseBoolean(session.getAttribute("isEmmMan").toString())){
+				employee_id = Integer.parseInt(req.getParameter("employee_id"));
+		}
 		if (option.equals("0")) {
 			session.invalidate();
 			resp.sendRedirect("login");
