@@ -42,7 +42,7 @@ function populate(){
 		form.action = "option";
 		form.method = "POST";
 		div.innerText = "Submit New Reimbursement Request, Enter 0 to Cancel";
-		div.id = "display";
+		div.id = "display2";
 		fieldset.appendChild(legend);
 		fieldset.appendChild(input);
 		form.appendChild(fieldset);	
@@ -72,10 +72,7 @@ function viewReimbursement(data){
 		}
 		div.innerText = "Reimbursement ID: "+ data[i].reimbursement_id + "\nEmployee ID: " + data[i].employee_id
 		+ "\nAmount: $" + data[i].amount + "\nStatus: " + status;
-		div.id = "display";
-		if (i %2 == 1){
-			div.id = "display2";
-		}
+		div.id = "display2";
 		document.body.appendChild(div);
 	}
 	//RETURN BUTTON BACK TO OPTIONS
@@ -83,7 +80,7 @@ function viewReimbursement(data){
 	var form = document.createElement("form");  
 	form.action = "option";
 	form.method = "POST";
-	div.id = "display";
+	div.id = "display2";
 	div.appendChild(form);
 	document.body.appendChild(div);
 	var div2 = document.createElement("div");
@@ -102,7 +99,7 @@ function viewEmployeeInfo(data){
 	var form = document.createElement("form");  
 	form.action = "option";
 	form.method = "POST";
-	div.id = "display";
+	div.id = "display2";
 	div.innerText = "EMPLOYEE ID: " + data[1] + 
 	"\nUSERNAME: " + data[2] +
 	"\nPASSWORD: " + data[3] +
@@ -127,7 +124,7 @@ function updateEmployeeInfo(data){
 	var form = document.createElement("form");  
 	form.action = "option";
 	form.method = "POST";
-	div.id = "display";
+	div.id = "display2";
 	div.innerText = "EMPLOYEE ID: " + data[1] + 
 	"\nUSERNAME: " + data[2] +
 	"\nPASSWORD: " + data[3] +
@@ -179,10 +176,7 @@ function updateEmployeeReimbursement(data){
 		}
 		div.innerText = "Reimbursement ID: "+ data[i].reimbursement_id + "\nEmployee ID: " + data[i].employee_id
 		+ "\nAmount: $" + data[i].amount + "\nStatus: " + status
-		div.id = "display";
-		if (i %2 == 1){
-			div.id = "display2";
-		}
+		div.id = "display2";
 		document.body.appendChild(div);
 	}
 	//SETTING UP
@@ -190,7 +184,7 @@ function updateEmployeeReimbursement(data){
 	var form = document.createElement("form");  
 	form.action = "option";
 	form.method = "POST";
-	div.id = "display";
+	div.id = "display2";
 	div.appendChild(form);
 	document.body.appendChild(div);
 	//APPROVE SELECTION
@@ -239,10 +233,7 @@ function viewEmployeeReimbursement(data){
 		}
 		div.innerText = "Reimbursement ID: "+ data[i].reimbursement_id + "\nEmployee ID: " + data[i].employee_id
 		+ "\nAmount: $" + data[i].amount + "\nStatus: " + status
-		div.id = "display";
-		if (i %2 == 1){
-			div.id = "display2";
-		}
+		div.id = "display2";
 		document.body.appendChild(div);
 	}
 	//RETURN BUTTON BACK TO OPTIONS
@@ -250,7 +241,7 @@ function viewEmployeeReimbursement(data){
 	var form = document.createElement("form");  
 	form.action = "option";
 	form.method = "POST";
-	div.id = "display";
+	div.id = "display2";
 	div.appendChild(form);
 	document.body.appendChild(div);
 	var div2 = document.createElement("div");
@@ -270,10 +261,7 @@ function viewEmployees(data){
 		var div = document.createElement("div");
 		div.innerText = "Employee ID: "+ data[i].employee_id + "\nUsername: " + data[i].username
 		+ "\nManager ID: " + data[i].manager_id;
-		div.id = "display";
-		if (i %2 == 1){
-			div.id = "display2";
-		}
+		div.id = "display2";
 		document.body.appendChild(div);
 	}
 	//RETURN BUTTON BACK TO OPTIONS
@@ -281,7 +269,7 @@ function viewEmployees(data){
 	var form = document.createElement("form");  
 	form.action = "option";
 	form.method = "POST";
-	div.id = "display";
+	div.id = "display2";
 	div.appendChild(form);
 	document.body.appendChild(div);
 	var div2 = document.createElement("div");
@@ -308,7 +296,7 @@ function registerEmployee(){
 	form.action = "option";
 	form.method = "POST";
 	div.innerText = "Submit New Employee Information";
-	div.id = "display";
+	div.id = "display2";
 	fieldset.appendChild(legend);
 	fieldset.appendChild(input);
 	//
