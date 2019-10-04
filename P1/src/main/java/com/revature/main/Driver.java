@@ -36,11 +36,11 @@ public class Driver {
 		//System.out.println(e.toString());
 		//System.out.println(dao.getEmployeeReimbursements(1));
 		//System.out.println(dao.getOtherReimbursements(1).toString());
-		String email = "raymondjhua@gmail.com";
+		String email = "raymond.hua@stonybrook.edu";
 		String username ="HI";
 		email = email.toLowerCase();
 		String password = dao.randomString();
-		dao.resetPassword(email, username, password);
+		//dao.resetPassword(email, username, password);
 		dao.sendEmail(email, username, password);
 		System.out.println("Done");
 	}

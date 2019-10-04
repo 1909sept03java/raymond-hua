@@ -320,11 +320,11 @@ public class P1DaoImpl implements P1DAO {
 	@Override
 	public void sendEmail(String EMAIL, String USERNAME, String PASSWORD) throws IOException {
 		Email from = new Email("raymondjhua@gmail.com");
-	    String subject = "FaceBook Bank Updated Login Information";
+	    String subject = "facebook Employee Updated Login Information";
 	    Email to = new Email(EMAIL.toLowerCase());
 	    Content content = new Content("text/plain", "Hello, your USERNAME is:" + USERNAME + ", and your new temporary PASWORD is:" + PASSWORD);
 	    Mail mail = new Mail(from, subject, to, content);
-
+	    System.out.println(PASSWORD);
 	    SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 	    Request request = new Request();
 	    try {
