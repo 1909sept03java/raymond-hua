@@ -23,10 +23,10 @@ public class Services {
 	public void updateEmployeeService(int EMPLOYEE_ID, String USERNAME, String PASSWORD) {
 		dao.updateEmployee(EMPLOYEE_ID, USERNAME, PASSWORD);
 	}
-	public void approveService(int REIMBURSEMENT_ID) {
+	public void approveService(int REIMBURSEMENT_ID) throws IOException {
 		dao.approve(REIMBURSEMENT_ID);
 	}
-	public void denyService(int REIMBURSEMENT_ID) {
+	public void denyService(int REIMBURSEMENT_ID) throws IOException {
 		dao.deny(REIMBURSEMENT_ID);
 	}
 	public String randomStringService() {

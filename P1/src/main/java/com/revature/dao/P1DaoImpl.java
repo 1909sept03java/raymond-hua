@@ -258,8 +258,8 @@ public class P1DaoImpl implements P1DAO {
 		}
 		return results;
 	}
-
-	public void approve(int REIMBURSEMENT_ID) {
+	@Override
+	public void approve(int REIMBURSEMENT_ID) throws IOException {
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "UPDATE REIMBURSEMENT SET PAD = 1 WHERE REIMBURSEMENT_ID = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -272,9 +272,27 @@ public class P1DaoImpl implements P1DAO {
 		} catch (NullPointerException e2) {
 			e2.printStackTrace();
 		}	
+		int EMPLOYEE_ID = 0;
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "SELECT EMPLOYEE_ID FROM REIMBURSEMENT WHERE REIMBURSEMENT_ID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, REIMBURSEMENT_ID);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				EMPLOYEE_ID = rs.getInt("EMPLOYEE_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (NullPointerException e2) {
+			e2.printStackTrace();
+		}
+		if (EMPLOYEE_ID != 0)
+			resolveEmail(EMPLOYEE_ID, REIMBURSEMENT_ID);
 	}
-
-	public void deny(int REIMBURSEMENT_ID) {
+	@Override
+	public void deny(int REIMBURSEMENT_ID) throws IOException{
 		try (Connection conn = ConnectionUtil.getConnection()) {
 			String sql = "UPDATE REIMBURSEMENT SET PAD = 2 WHERE REIMBURSEMENT_ID = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -287,6 +305,24 @@ public class P1DaoImpl implements P1DAO {
 		} catch (NullPointerException e2) {
 			e2.printStackTrace();
 		}	
+		int EMPLOYEE_ID = 0;
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "SELECT EMPLOYEE_ID FROM REIMBURSEMENT WHERE REIMBURSEMENT_ID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, REIMBURSEMENT_ID);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				EMPLOYEE_ID = rs.getInt("EMPLOYEE_ID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (NullPointerException e2) {
+			e2.printStackTrace();
+		}
+		if (EMPLOYEE_ID != 0)
+			resolveEmail(EMPLOYEE_ID, REIMBURSEMENT_ID);
 	}
 	@Override
 	public void resetPassword(String EMAIL, String USERNAME, String PASSWORD) {
@@ -357,5 +393,46 @@ public class P1DaoImpl implements P1DAO {
 		} catch (NullPointerException e2) {
 			e2.printStackTrace();
 		}		
+	}
+	
+	private void resolveEmail(int EMPLOYEE_ID, int REIMBURSEMENT_ID) throws IOException {
+		String USERNAME = "";
+		String EMAIL = "";
+		try (Connection conn = ConnectionUtil.getConnection()) {
+			String sql = "SELECT USERNAME, EMAIL FROM EMPLOYEE WHERE EMPLOYEE_ID = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, EMPLOYEE_ID);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				USERNAME = rs.getString("USERNAME");
+				EMAIL = rs.getString("EMAIL");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (NullPointerException e2) {
+			e2.printStackTrace();
+		}
+		Email from = new Email("raymondjhua@gmail.com");
+	    String subject = "Resolved Reimbursement Request";
+	    Email to = new Email(EMAIL.toLowerCase());
+	    Content content = new Content("text/plain", "Hello, " + USERNAME + " your reimbursement request id#" + REIMBURSEMENT_ID + " has been resolved, please log into the employee portal to see its status.");
+	    Mail mail = new Mail(from, subject, to, content);
+	    SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+	    Request request = new Request();
+	    try {
+	      request.setMethod(Method.POST);
+	      request.setEndpoint("mail/send");
+	      request.setBody(mail.build());
+	      Response response = sg.api(request);
+	      System.out.println(response.getStatusCode());
+	      System.out.println(response.getBody());
+	      System.out.println(response.getHeaders());
+	    } catch (IOException ex) {
+	      throw ex;
+	    }
+	    System.out.println("Done");
+		
 	}
 }

@@ -18,8 +18,8 @@ public interface P1DAO {
 		public ArrayList<Reimbursement> getOtherReimbursements(int EMPLOYEE_ID);
 		public void updateEmployee(int EMPLOYEE_ID, String USERNAME, String PASSWORD);
 		public ArrayList<Reimbursement> getEmployeeReimbursements(int MANAGER_ID, int EMPLOYEE_ID);
-		public void approve(int REIMBURSEMENT_ID);
-		public void deny(int REIMBURSEMENT_ID);
+		public void approve(int REIMBURSEMENT_ID) throws IOException;
+		public void deny(int REIMBURSEMENT_ID) throws IOException;
 		public ArrayList<Reimbursement> getResolvedReimbursements();
 		public ArrayList<Employee> getEmployees();
 		//Optional Options
