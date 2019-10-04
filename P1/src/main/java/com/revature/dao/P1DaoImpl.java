@@ -325,7 +325,7 @@ public class P1DaoImpl implements P1DAO {
 	    Content content = new Content("text/plain", "Hello, your USERNAME is:" + USERNAME + ", and your new temporary PASWORD is:" + PASSWORD);
 	    Mail mail = new Mail(from, subject, to, content);
 
-	    SendGrid sg = new SendGrid("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");
+	    SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 	    Request request = new Request();
 	    try {
 	      request.setMethod(Method.POST);

@@ -1,5 +1,6 @@
 package com.revature.main;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.Random;
 import java.util.Scanner;
@@ -12,7 +13,7 @@ public class Driver {
 
 	private static P1DaoImpl dao = new P1DaoImpl();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 
 		try {
 			Connection conn = ConnectionUtil.getConnection();
@@ -40,6 +41,7 @@ public class Driver {
 		email = email.toLowerCase();
 		String password = dao.randomString();
 		dao.resetPassword(email, username, password);
+		dao.sendEmail(email, username, password);
 		System.out.println("Done");
 	}
 
