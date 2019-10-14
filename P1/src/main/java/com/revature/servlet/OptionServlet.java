@@ -45,7 +45,7 @@ public class OptionServlet extends HttpServlet {
 				}
 				i = Integer.parseInt(req.getParameter("deny"));
 				if (i != 0) {
-					s.approveService(Integer.parseInt(req.getParameter("deny")));
+					s.denyService(Integer.parseInt(req.getParameter("deny")));
 				}
 				break;
 			case 10: String password2 = s.randomStringService();

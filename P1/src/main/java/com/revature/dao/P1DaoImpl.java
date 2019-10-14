@@ -59,8 +59,7 @@ public class P1DaoImpl implements P1DAO {
 			pstmt.setInt(1, E.getEmployee_id());
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				if (rs.getInt("MANAGER_ID") == E.getEmployee_id())
-					;
+				if (rs.getInt("MANAGER_ID") == E.getEmployee_id());
 				return true;
 			}
 		} catch (SQLException e) {
