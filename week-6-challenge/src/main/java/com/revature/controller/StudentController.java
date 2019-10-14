@@ -2,6 +2,7 @@ package com.revature.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,11 +43,12 @@ public class StudentController {
 		}
 	}
 	//CREATE
+	@Transactional
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<String> addFlashcard(@Valid @RequestBody Student s) {
 		ResponseEntity<String> resp = null;
 		try {
-			this.service.addStudent(s);;
+			this.service.addStudent(s);
 			resp = new ResponseEntity<>("STUDENT CREATED SUCCESSFULLY", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -59,7 +61,7 @@ public class StudentController {
 	public ResponseEntity<String> updateFlashcard(@RequestBody Student s) {
 		ResponseEntity<String> resp = null;
 			try {
-				this.service.updateStudent(s);;
+				this.service.updateStudent(s);
 				resp = new ResponseEntity<>("STUDENT UPDATED SUCCESSFULLY", HttpStatus.OK);
 			} catch(Exception e) {
 				e.printStackTrace();

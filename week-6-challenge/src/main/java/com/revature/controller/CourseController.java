@@ -2,6 +2,7 @@ package com.revature.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.model.Course;
+import com.revature.model.Student;
 import com.revature.service.CourseService;
 
 @RestController
@@ -34,19 +36,20 @@ public class CourseController {
 	}
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Course> getFlashcardById(@PathVariable int id) {
-		Course s = this.service.getCourseById(id);
-		if (s == null) {
+		Course c = this.service.getCourseById(id);
+		if (c == null) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		} else {
-			return new ResponseEntity<>(s, HttpStatus.OK);
+			return new ResponseEntity<>(c, HttpStatus.OK);
 		}
 	}
 	//CREATE
+	@Transactional
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> addFlashcard(@Valid @RequestBody Course s) {
+	public ResponseEntity<String> addFlashcard(@Valid @RequestBody Course c) {
 		ResponseEntity<String> resp = null;
 		try {
-			this.service.addCourse(s);;
+			this.service.addCourse (c);
 			resp = new ResponseEntity<>("COURSE CREATED SUCCESSFULLY", HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -56,10 +59,22 @@ public class CourseController {
 	}
 	//UPDATE
 	@RequestMapping(method=RequestMethod.PUT) 
-	public ResponseEntity<String> updateFlashcard(@RequestBody Course s) {
+	public ResponseEntity<String> updateFlashcard(@RequestBody Course c) {
 		ResponseEntity<String> resp = null;
 			try {
-				this.service.updateCourse(s);;
+				this.service.updateCourse(c);
+				resp = new ResponseEntity<>("COURSE UPDATED SUCCESSFULLY", HttpStatus.OK);
+			} catch(Exception e) {
+				e.printStackTrace();
+				resp = new ResponseEntity<>("FAILED TO UPDATE COURSE", HttpStatus.BAD_REQUEST);
+			}
+		return resp;
+	}
+	@RequestMapping(value = "/addStudent", method=RequestMethod.PUT) 
+	public ResponseEntity<String> addStudent(@RequestBody Course c, @RequestBody Student s) {
+		ResponseEntity<String> resp = null;
+			try {
+				this.service.addStudent(c, s);
 				resp = new ResponseEntity<>("COURSE UPDATED SUCCESSFULLY", HttpStatus.OK);
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -69,10 +84,10 @@ public class CourseController {
 	}
 	//DELETE
 	@RequestMapping(method=RequestMethod.DELETE)
-	public ResponseEntity<String> deleteFlashcard(@RequestBody Course s) {
+	public ResponseEntity<String> deleteFlashcard(@RequestBody Course c) {
 		ResponseEntity<String> resp = null;
 			try {
-				this.service.deleteCourse(s);
+				this.service.deleteCourse(c);
 				resp = new ResponseEntity<>("COURSE DELETED SUCCESSFULLY", HttpStatus.OK);
 			} catch(Exception e) {
 				e.printStackTrace();
