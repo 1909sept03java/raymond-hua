@@ -71,10 +71,10 @@ public class CourseController {
 		return resp;
 	}
 	@RequestMapping(value = "/addStudent", method=RequestMethod.PUT) 
-	public ResponseEntity<String> addStudent(@RequestBody Course c, @RequestBody Student s) {
+	public ResponseEntity<String> addStudent(@RequestBody Course c, Student s) {
 		ResponseEntity<String> resp = null;
 			try {
-				this.service.addStudent(c, s);
+				this.service.addStudentByCourse(c, s);
 				resp = new ResponseEntity<>("COURSE UPDATED SUCCESSFULLY", HttpStatus.OK);
 			} catch(Exception e) {
 				e.printStackTrace();

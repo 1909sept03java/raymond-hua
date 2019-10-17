@@ -40,7 +40,7 @@ public class CourseService {
 		this.courseRepository.save(c);
 	}
 	
-	public void addStudent(Course c, Student s) {
+	public void addStudentByCourse(Course c, Student s) {
 		Course target = this.courseRepository.findById(c.getId()).orElse(null);
 		List<Student> list = target.getStudents();
 		list.add(s);
