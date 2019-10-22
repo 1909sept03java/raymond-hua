@@ -45,6 +45,15 @@ public class CourseRegistrationController {
 			return new ResponseEntity<>(s, HttpStatus.OK);
 		}
 	}
+	@RequestMapping(value = "/student", method = RequestMethod.GET)
+	public ResponseEntity<List<CourseRegistration>> getCourseRegistrationByStudentId(@RequestParam int id) {
+		List<CourseRegistration> s = this.service.getCourseRegistrationByStudentId(id);
+		if (s == null) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<>(s, HttpStatus.OK);
+		}
+	}
 	//CREATE
 	@Transactional
 	@RequestMapping(method = RequestMethod.POST)

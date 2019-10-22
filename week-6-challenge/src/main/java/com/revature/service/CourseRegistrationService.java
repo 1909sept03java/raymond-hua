@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +57,16 @@ public class CourseRegistrationService {
 			this.csRepository.delete(target);
 			this.csRepository.save(target);
 		}
+	}
+
+	public List<CourseRegistration> getCourseRegistrationByStudentId(int id) {
+		List<CourseRegistration> target = this.csRepository.findAll();		
+		List<CourseRegistration> results = new ArrayList<>();;
+		for(CourseRegistration i : target) {
+			if(i.getStudent().getId() == id) {
+				results.add(i);
+			}
+		}
+		return results;
 	}
 }
