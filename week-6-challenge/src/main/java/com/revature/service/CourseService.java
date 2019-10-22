@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.model.Course;
-import com.revature.model.Student;
+import com.revature.model.Course;
+import com.revature.model.Course;
 import com.revature.repository.CourseRepository;
 
 @Service
@@ -27,6 +28,17 @@ public class CourseService {
 		return this.courseRepository.findById(id).orElse(null);
 	}
 
+	public Course getCourseByName(String name) {
+		List<Course> targets = this.courseRepository.findAll();
+		Course target = null;
+		for(Course i : targets) {
+			if (i.getName().equals(name)) {
+				target = i;
+				break;
+			}
+		}
+		return target;
+	}
 	public void addCourse(Course c) {
 		this.courseRepository.save(c);
 	}
@@ -35,17 +47,13 @@ public class CourseService {
 		this.courseRepository.delete(c);
 	}
 	
-	public void updateCourse(Course c) {
-		this.courseRepository.delete(this.courseRepository.findById(c.getId()).orElse(null));
-		this.courseRepository.save(c);
-	}
-	
-	public void addStudentByCourse(Course c, Student s) {
-		Course target = this.courseRepository.findById(c.getId()).orElse(null);
-		List<Student> list = target.getStudents();
-		list.add(s);
-		target.setStudents(list);
-		this.courseRepository.delete(this.courseRepository.findById(c.getId()).orElse(null));
-		this.courseRepository.save(target);
+	public void updateCourse(Course s) {
+		Course target = getCourseByName(s.getName());
+		if (target == null)
+			this.courseRepository.save(s);
+		else {
+			this.courseRepository.delete(s);
+			this.courseRepository.save(s);
+		}
 	}
 }

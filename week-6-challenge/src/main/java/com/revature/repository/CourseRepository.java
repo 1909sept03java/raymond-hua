@@ -9,5 +9,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer>{
-	public void addStudentByCourse(Course c, Student s);
 }

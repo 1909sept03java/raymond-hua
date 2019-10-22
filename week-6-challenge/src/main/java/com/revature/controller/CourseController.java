@@ -35,7 +35,7 @@ public class CourseController {
 		return new ResponseEntity<>(this.service.allCourses(), HttpStatus.OK);
 	}
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Course> getFlashcardById(@PathVariable int id) {
+	public ResponseEntity<Course> getCourseById(@PathVariable int id) {
 		Course c = this.service.getCourseById(id);
 		if (c == null) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -46,7 +46,7 @@ public class CourseController {
 	//CREATE
 	@Transactional
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> addFlashcard(@Valid @RequestBody Course c) {
+	public ResponseEntity<String> addCourse(@Valid @RequestBody Course c) {
 		ResponseEntity<String> resp = null;
 		try {
 			this.service.addCourse (c);
@@ -59,7 +59,7 @@ public class CourseController {
 	}
 	//UPDATE
 	@RequestMapping(method=RequestMethod.PUT) 
-	public ResponseEntity<String> updateFlashcard(@RequestBody Course c) {
+	public ResponseEntity<String> updateCourse(@RequestBody Course c) {
 		ResponseEntity<String> resp = null;
 			try {
 				this.service.updateCourse(c);
@@ -70,21 +70,21 @@ public class CourseController {
 			}
 		return resp;
 	}
-	@RequestMapping(value = "/addStudent", method=RequestMethod.PUT) 
-	public ResponseEntity<String> addStudent(@RequestBody Course c, Student s) {
-		ResponseEntity<String> resp = null;
-			try {
-				this.service.addStudentByCourse(c, s);
-				resp = new ResponseEntity<>("COURSE UPDATED SUCCESSFULLY", HttpStatus.OK);
-			} catch(Exception e) {
-				e.printStackTrace();
-				resp = new ResponseEntity<>("FAILED TO UPDATE COURSE", HttpStatus.BAD_REQUEST);
-			}
-		return resp;
-	}
+//	@RequestMapping(value = "/addStudent", method=RequestMethod.PUT) 
+//	public ResponseEntity<String> addStudent(@RequestBody Course c, Student s) {
+//		ResponseEntity<String> resp = null;
+//			try {
+//				this.service.addStudentByCourse(c, s);
+//				resp = new ResponseEntity<>("COURSE UPDATED SUCCESSFULLY", HttpStatus.OK);
+//			} catch(Exception e) {
+//				e.printStackTrace();
+//				resp = new ResponseEntity<>("FAILED TO UPDATE COURSE", HttpStatus.BAD_REQUEST);
+//			}
+//		return resp;
+//	}
 	//DELETE
 	@RequestMapping(method=RequestMethod.DELETE)
-	public ResponseEntity<String> deleteFlashcard(@RequestBody Course c) {
+	public ResponseEntity<String> deleteCourse(@RequestBody Course c) {
 		ResponseEntity<String> resp = null;
 			try {
 				this.service.deleteCourse(c);

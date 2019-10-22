@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
@@ -31,11 +32,10 @@ public class Course {
 	@NotEmpty // JSR303 validation
 	@Column(name="COURSE_NAME")
 	private String name;
-	@ManyToMany(cascade=CascadeType.MERGE, fetch=FetchType.EAGER)
-	@JoinTable(name="COURSE_STUDENT",
-	joinColumns = {@JoinColumn(name="COURSE_STUDENT_ID")},
-	inverseJoinColumns = {@JoinColumn(name="STUDENT_ID")})
+	@ManyToMany(mappedBy = "courses")
 	private List<Student> students = new ArrayList<>();
+	@OneToMany(mappedBy = "course")
+    List<CourseRegistration> registrations;
 	//CONSTRUCTOR
 	public Course() {
 		super();

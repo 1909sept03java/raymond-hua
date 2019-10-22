@@ -34,7 +34,7 @@ public class StudentController {
 		return new ResponseEntity<>(this.service.allStudents(), HttpStatus.OK);
 	}
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Student> getFlashcardById(@PathVariable int id) {
+	public ResponseEntity<Student> getStudentById(@PathVariable int id) {
 		Student s = this.service.getStudentById(id);
 		if (s == null) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -45,7 +45,7 @@ public class StudentController {
 	//CREATE
 	@Transactional
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<String> addFlashcard(@Valid @RequestBody Student s) {
+	public ResponseEntity<String> addStudent(@Valid @RequestBody Student s) {
 		ResponseEntity<String> resp = null;
 		try {
 			this.service.addStudent(s);
@@ -58,7 +58,7 @@ public class StudentController {
 	}
 	//UPDATE
 	@RequestMapping(method=RequestMethod.PUT) 
-	public ResponseEntity<String> updateFlashcard(@RequestBody Student s) {
+	public ResponseEntity<String> updateStudent(@RequestBody Student s) {
 		ResponseEntity<String> resp = null;
 			try {
 				this.service.updateStudent(s);
@@ -71,7 +71,7 @@ public class StudentController {
 	}
 	//DELETE
 	@RequestMapping(method=RequestMethod.DELETE)
-	public ResponseEntity<String> deleteFlashcard(@RequestBody Student s) {
+	public ResponseEntity<String> deleteStudent(@RequestBody Student s) {
 		ResponseEntity<String> resp = null;
 			try {
 				this.service.deleteStudent(s);
