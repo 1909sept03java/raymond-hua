@@ -24,7 +24,31 @@ export class Registration{
   ) {}
 }
 
+@Injectable({
+  providedIn: 'root'
+})
 export class HttpClientService {
 
-  constructor() { }
+  constructor(
+    private httpClient:HttpClient
+  ) { }
+
+  getStudents()
+  {
+    console.log("Get all students");
+    console.log(this.httpClient.get<Student[]>('http://localhost:8083/student/all'));
+    return this.httpClient.get<Student[]>('http://localhost:8083/student/all');
+  }
+  getCourses()
+  {
+    console.log("Get all courses");
+    console.log(this.httpClient.get<Student[]>('http://localhost:8083/course/all'));
+    return this.httpClient.get<Student[]>('http://localhost:8083/course/all');
+  }
+  getCourseRegistrations()
+  {
+    console.log("Get all course registrations");
+    console.log(this.httpClient.get<Student[]>('http://localhost:8083/cs/all'));
+    return this.httpClient.get<Student[]>('http://localhost:8083/cs/all');
+  }
 }
