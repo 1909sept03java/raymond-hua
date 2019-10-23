@@ -83,10 +83,16 @@ public class CourseRegistrationController {
 	}
 	//DELETE
 	@RequestMapping(method=RequestMethod.DELETE)
-	public ResponseEntity<String> deleteCourseRegistration(@RequestBody CourseRegistration s) {
+	public ResponseEntity<String> deleteCourseRegistration(@RequestParam int student_id, @RequestParam int course_id) {
+		List<CourseRegistration> s = this.service.getCourseRegistrationByStudentId(student_id);
+		CourseRegistration target = null;
+		for (CourseRegistration i : s) {
+			if (i.getCourse().getId() == course_id)
+				target = i;
+		}
 		ResponseEntity<String> resp = null;
 			try {
-				this.service.deleteCourseRegistration(s);
+				this.service.deleteCourseRegistration(target);
 				resp = new ResponseEntity<>("COURSE REGISTRATION DELETED SUCCESSFULLY", HttpStatus.OK);
 			} catch(Exception e) {
 				e.printStackTrace();
